@@ -1,5 +1,4 @@
-# Author: Alex S.
-# Editor: Ben M.
+
 
 import pandas as pd
 import tensorflow as tf
@@ -11,7 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 TLDir = 'Military and Civilian Vehicles Classification/Images'
-imgSize = 64    # Number of pixels of one dimension of the image.
+imgSize = 32    # Number of pixels of one dimension of the image.
 
 # Load annotations into memory using Pandas
 train_df = pd.read_csv('Military and Civilian Vehicles Classification/Images/train_labels.csv')
@@ -62,7 +61,7 @@ model.compile(optimizer='adam',
 history = model.fit(
     train_generator,
     steps_per_epoch=len(train_generator),
-    epochs=10,
+    epochs=5,                              # RESET THIS TO 10 EPOCHS FOR DEMONSTRATION!
     validation_data=test_generator,
     validation_steps=len(test_generator)
 )
@@ -92,7 +91,9 @@ class_idx = np.argmax(prediction[0])
 # Print the predicted class label
 
 print('Predicted class:', train_generator.classes[class_idx])
+print('History: ', history)
 
 # Display the history graph
 pd.DataFrame(history.history).plot()
+plt.title('Evaluation Metrics')
 plt.show()
