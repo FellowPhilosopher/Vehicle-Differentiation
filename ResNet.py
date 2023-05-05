@@ -84,7 +84,7 @@ model.compile(optimizer='adam',
 model.fit(
     train_generator,
     steps_per_epoch=len(train_generator),
-    epochs=10,
+    epochs=20,
     validation_data=test_generator,
     validation_steps=len(test_generator)
 )
