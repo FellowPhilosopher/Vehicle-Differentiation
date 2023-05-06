@@ -15,6 +15,8 @@ from keras.datasets import cifar10
 import numpy as np
 import os
 import cv2
+import matplotlib.pyplot as plt
+from PIL import Image
 
 TLDir = 'Military and Civilian Vehicles Classification/Images'
 imgSize = 32    # Number of pixels of one dimension of the image.
@@ -49,7 +51,7 @@ test_generator = test_datagen.flow_from_dataframe(
 
 # Create a ResNet model
 def residual_block(inputs, filters, kernel_size=3, strides=1):
-    x = Conv2D(filters, kernel_size=kernel_size, strides=strides, padding='same')(inputs)
+    x = Conv2D(filters, kernel_size=kernel_size, strides=strides, padding='s1ame')(inputs)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
     x = Conv2D(filters, kernel_size=kernel_size, strides=strides, padding='same')(x)
@@ -81,7 +83,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 # Train the model
-model.fit(
+history = model.fit(
     train_generator,
     steps_per_epoch=len(train_generator),
     epochs=20,
@@ -95,14 +97,6 @@ def switch(label):
     if label == 0:
         return "Civilian"
     elif label == 1:
-        return "Civilian"
-    elif label == 2:
-        return "Military"
-    elif label == 3:
-        return "Military"
-    elif label == 4:
-        return "Military"
-    elif label == 5:
         return "Military"
 
 counter = 0
@@ -118,7 +112,7 @@ for image in train_generator.filepaths:
     class_idx = np.argmax(prediction[0])
 
     predictions[counter] = train_generator.classes[class_idx]
-
+    """
     # Display Test Images
     pimg = np.asarray(Image.open(image))
     plt.imshow(pimg)
@@ -126,7 +120,7 @@ for image in train_generator.filepaths:
     #plt.axis("off")
     #if (counter % 10 == 0) & (counter < 100):
         #plt.show()
-
+    """
     counter+=1
     if counter == 999:
         break
@@ -144,6 +138,6 @@ print("SYSTEM ACCURACY: ", numRight/1000*100, "%")
 pd.DataFrame(history.history).plot()
 plt.ylabel('Decimal Value')
 plt.xlabel('Epoch')
-plt.title('Evaluation Metrics')
+plt.title('Resnet Evaluation Metrics')
 plt.show()
 """

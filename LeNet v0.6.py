@@ -45,14 +45,14 @@ test_generator = test_datagen.flow_from_dataframe(
 
 # Create a LeNet model
 model = Sequential()
-model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(imgSize, imgSize, 3)))
+model.add(Conv2D(32, (3, 3), activation='tanh', input_shape=(imgSize, imgSize, 3)))
 model.add(MaxPooling2D((2, 2)))
-model.add(Conv2D(64, (3, 3), activation='relu'))
+model.add(Conv2D(64, (3, 3), activation='tanh'))
 model.add(MaxPooling2D((2, 2)))
-model.add(Conv2D(128, (3, 3), activation='relu'))
+model.add(Conv2D(128, (3, 3), activation='tanh'))
 model.add(MaxPooling2D((2, 2)))
 model.add(Flatten())
-model.add(Dense(64, activation='relu'))
+model.add(Dense(64, activation='tanh'))
 model.add(Dense(6, activation='softmax'))
 
 # Compile the model
@@ -65,7 +65,7 @@ model.compile(optimizer='adam',
 history = model.fit(
     train_generator,
     steps_per_epoch=len(train_generator),
-    epochs=20,                              # RESET THIS TO 50 EPOCHS FOR DEMONSTRATION!
+    epochs=20,
     validation_data=test_generator,
     validation_steps=len(test_generator)
 )
@@ -95,17 +95,17 @@ class_idx = np.argmax(prediction[0])
 # Print the predicted class label
 def switch(label):
     if label == 0:
-        return "Civilian"
+        return "Civilian Aircraft"
     elif label == 1:
-        return "Civilian"
+        return "Civilian Car"
     elif label == 2:
-        return "Military"
+        return "Military Aircraft"
     elif label == 3:
-        return "Military"
+        return "Military Helicopter"
     elif label == 4:
-        return "Military"
+        return "Military Tank"
     elif label == 5:
-        return "Military"
+        return "Military Truck"
 #print('Predicted class:', train_generator.classes[class_idx])
 #print('History: ', history)
 
@@ -132,7 +132,7 @@ for image in train_generator.filepaths:
     plt.imshow(pimg)
     plt.xlabel(switch(train_generator.classes[class_idx]))
     #plt.axis("off")
-    if (counter % 10 == 0) & (counter < 100):
+    if (counter % 100 == 0) & (counter < 100):
         plt.show()
 
     counter+=1
@@ -148,11 +148,11 @@ for pred in predictions:
 #print(len(predictions))
 #print(predictions)
 print("SYSTEM ACCURACY: ", numRight/1000*100, "%")
-
-
+"""
 # Display the history graph
 pd.DataFrame(history.history).plot()
 plt.ylabel('Decimal Value')
 plt.xlabel('Epoch')
-plt.title('Evaluation Metrics')
+plt.title('LeNet Evaluation Metrics')
 plt.show()
+"""
