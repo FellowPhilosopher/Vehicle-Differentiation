@@ -18,7 +18,7 @@ classSize = 2
 train_df = pd.read_csv('Military and Civilian Vehicles Classification/Images/train_labels.csv')
 test_df = pd.read_csv('Military and Civilian Vehicles Classification/Images/test_labels.csv')
 
-# Create an ImageDataGenerator and specify the dataframe and image directory
+#  Create an ImageDataGenerator and specify the dataframe and image directory
 train_datagen = ImageDataGenerator(rescale=1./255)
 test_datagen = ImageDataGenerator(rescale=1./255)
 
