@@ -44,7 +44,7 @@ test_generator = test_datagen.flow_from_dataframe(
 #(train_generator.classes)
 #print(train_generator.filepaths.__class__)
 
-# Create a LeNet model
+#  Create a LeNet model
 model = Sequential()
 model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(imgSize, imgSize, 3)))
 model.add(MaxPooling2D((2, 2)))
